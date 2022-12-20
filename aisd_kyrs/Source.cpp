@@ -49,6 +49,22 @@ void BuildTable(Node* root)
 	if (!code.empty()) code.pop_back();
 }
 
+void print(Node* root, int k){
+	if (root != NULL) {
+		print(root->left, k + 1);
+
+		for (int i = 0; i < k; i++) {
+			cout << "    ";
+		}
+		if (root->c) {
+			cout << root->a << " (" << root->c << ")" << endl;
+		} else {
+			cout << root->a << endl;
+		}
+		print(root->right, k + 1);
+	}
+}
+
 
 int main(int argc, char* argv[])
 {
@@ -86,6 +102,7 @@ int main(int argc, char* argv[])
 
 	Node* root = t.front();	
 
+	//print(root, 0);
 	BuildTable(root);
 
 	f.clear(); f.seekg(0);
