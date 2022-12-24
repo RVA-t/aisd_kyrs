@@ -3,6 +3,7 @@
 #include <map>
 #include <list>
 #include <fstream>
+
 using namespace std;
 
 class Node
@@ -27,6 +28,8 @@ struct MyCompare
 };
 
 
+ofstream Value_freq("value_freq.txt");
+
 vector<bool> code;
 map<char, vector<bool> > table;
 
@@ -45,6 +48,9 @@ void BuildTable(Node* root)
 
 	if (root->left == NULL && root->right == NULL) {
 		table[root->c] = code;
+		Value_freq << root->c << " ";
+		copy(code.begin(), code.end(), ostream_iterator<int>(Value_freq, " "));
+		Value_freq << endl;
 	}
 	if (!code.empty()) code.pop_back();
 }
@@ -104,6 +110,7 @@ int main(int argc, char* argv[])
 
 	//print(root, 0);
 	BuildTable(root);
+	Value_freq.close();
 
 	f.clear(); f.seekg(0);
 
